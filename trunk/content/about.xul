@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<!DOCTYPE dialog SYSTEM "chrome://salattimes/locale/about.dtd">
+<dialog title="&about; Salat Times" orient="vertical" autostretch="always" onload="sizeToContent()" buttons="accept" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<!-- Original template by Jed Brown -->
+<groupbox align="center" orient="horizontal">
+<vbox>
+  <text value="Salat Times" style="font-weight: bold; font-size: x-large;"/>
+  <text value="&version; 0.1"/>
+  <separator class="thin"/>
+  <text value="&createdBy;" style="font-weight: bold;"/>
+  <text value="Muhammad Mainul Hossain"/>
+  <separator class="thin"/>
+      <text value="&homepage;" style="font-weight: bold;"/>
+    <text value="http://salattimes.keensocial.com"
+          class="url"
+        onclick="window.open('http://salattimes.keensocial.com'); window.close();"/>
+  <separator class="thin"/>
+</vbox>
+</groupbox>
+</dialog>
