@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<RDF:RDF xmlns:em="http://www.mozilla.org/2004/em-rdf#"
+         xmlns:NC="http://home.netscape.com/NC-rdf#"
+         xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <RDF:Description RDF:about="urn:mozilla:install-manifest"
+                   em:id="salattimes@keensocial.com"
+                   em:name="Salat Times"
+                   em:version="0.2"
+                   em:creator="Muhammad Mainul Hossain"
+                   em:description="This extension provides the prayer times for salat/namaz of the muslim community around the world"
+                   em:homepageURL="http://salattimes.keensocial.com"
+                   em:iconURL="chrome://salattimes/content/salattimes.jpg"
+                   em:optionsURL="chrome://salattimes/content/options.xul"
+                   em:aboutURL="chrome://salattimes/content/about.xul">
+    <em:targetApplication RDF:resource="rdf:#$SinNE"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="rdf:#$SinNE"
+                   em:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   em:minVersion="1.5"
+                   em:maxVersion="3.5.*" />
+</RDF:RDF>
