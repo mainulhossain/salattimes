@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://salattimes/skin/overlay.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://salattimes/locale/salattimes.dtd">
+<overlay id="salattimes-overlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  
+  <script src="overlay.js"/>
+  
+  <stringbundleset id="stringbundleset">
+    <stringbundle id="salattimes-strings" src="chrome://salattimes/locale/salattimes.properties"/>
+  </stringbundleset>
+
+  <menupopup id="menu_ToolsPopup">
+    <menuitem id="salattimes-hello" label="&salattimes.label;"  oncommand="gSalatTimes.onMenuItemCommand(event);"/>
+  </menupopup>
+  
+<statusbar id="status-bar">
+	<!--<statusbarpanel id="status-bar-sample-1"
+		label="Hello World"
+		tooltiptext="Sample status bar item"
+	/>
+	class="chromeclass-toolbar-additional"
+	-->
+	
+	<menupopup id="opt-menu">
+       <menuitem label="&salattimes.options.label;" default="true" oncommand="window.openDialog('chrome://salattimes/content/options.xul', 'options', 'chrome,modal');" />
+       <menuitem label="&salattimes.about.label;" oncommand="window.openDialog('chrome://salattimes/content/about.xul', 'about', 'chrome,modal');" />
+	</menupopup>
+
+	<menupopup id="orient-menu">
+	  <menuitem label="Horiz" accessKey="H" />
+	  <menuitem label="Vert" accessKey="V" />
+	  <menuitem label="Refresh" accessKey="R" />
+	</menupopup>
+	
+	<hbox id="salat-box">
+	  <image id="opt-salat-menu" src='chrome://salattimes/content/salattimes.jpg' popup="opt-menu" context="orient-menu" tooltiptext="Options" width="10" height="10"/>
+	  <label id="salat-fajr" value="salat-fajr" flex="3" tooltiptext="Fajr" style="border: 1px solid #00F;"/>
+	  <label id="salat-sunrise" value="salat-sunrise" flex="3" tooltiptext="Sunrise"  style="border: 1px solid #00F;"/>
+	  <label id="salat-dhuhr" value="salat-dhuhr" flex="3" tooltiptext="Dhuhr"  style="border: 1px solid #00F;"/>
+	  <label id="salat-asr" value="salat-asr" flex="3" tooltiptext="Asr"  style="border: 1px solid #00F;"/>
+	  <label id="salat-maghrib" value="salat-maghrib" flex="3" tooltiptext="Maghrib"  style="border: 1px solid #00F;"/>
+	  <label id="salat-isha" value="salat-isha" flex="3" tooltiptext="Isha"  style="border: 1px solid #00F;"/>
+	</hbox>
+</statusbar>
+
+</overlay>
