@@ -5,6 +5,7 @@ SalatTimes.prototype = {
   startup: function() {
     // initialization code
     this.initialized = true;
+    
     this.strings = document.getElementById("salattimes-strings");
 
     
@@ -34,6 +35,7 @@ SalatTimes.prototype = {
   },
   observe: function(subject, topic, data)
   {
+	  alert(this.location);
       if (topic != "nsPref:changed")
       {
 		return;
@@ -42,25 +44,22 @@ SalatTimes.prototype = {
       {
 	  case "location":
 		  this.location = this.prefs.getCharPref("location").toUpperCase();
-	      this.refreshInformation();
+		  this.refreshInformation();
 	      break;
       }
   },
-  parseXml: function(xml) 
-  {
-    var xmlDoc = null;
-    if (window.DOMParser)
-    {
-    parser=new DOMParser();
-    xmlDoc=parser.parseFromString(xml,"text/xml");
-    }
-  else // Internet Explorer
-    {
-    xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
-    xmlDoc.async="false";
-    xmlDoc.loadXML(xml); 
-    }
-    return xmlDoc;
+  parseXml: function(xml) {
+		var xmlDoc = null;
+		if (window.DOMParser) {
+			parser=new DOMParser();
+			xmlDoc=parser.parseFromString(xml,"text/xml");
+		}
+		else {// Internet Explorer
+			xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+			xmlDoc.async="false";
+			xmlDoc.loadXML(xml);
+		}
+		return xmlDoc;
   },
   updateSalatTimes: function()
   {
@@ -80,7 +79,7 @@ SalatTimes.prototype = {
       var fullUrl = "http://www.islamicfinder.org/prayer_service.php?" + address + "&dayLight=1&HanfiShafi=1&pmethod=1&fajrTwilight1=10&fajrTwilight2=10&ishaTwilight=10&ishaInterval=30&dhuhrInterval=1&maghribInterval=1&simpleFormat=xml&monthly=0&month=";
       
       address = locItems[0] + "," + locItems[1] + "," + locItems[2];
-      
+      alert(address);
       function infoReceived()
       {
     	  var output = httpRequest.responseText;
@@ -138,20 +137,8 @@ SalatTimes.prototype = {
   }
 };
 
-function stLoad()
-{
-  gSalatTimes = new SalatTimes();
-  gSalatTimes.startup();
-};
 
-function stUnload()
-{
-  if (gSalatTimes)
-  {
-    gSalatTimes.shutdown();
-    gSalatTimes = null;
-  }
-};
+var gSalatTimes = new SalatTimes();
 
-window.addEventListener("load", stLoad, false);
-window.addEventListener("unload", stUnload, false);
+window.addEventListener("load", gSalatTimes.startup, false);
+window.addEventListener("unload", gSalatTimes.shutdown, false);
