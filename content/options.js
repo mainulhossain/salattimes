@@ -7,9 +7,20 @@ SalatOptions.prototype = {
 		    .getBranch("extensions.salattimes.");
     
     this.prefs.QueryInterface(Components.interfaces.nsIPrefBranch2);
+    
+    var location = this.prefs.getCharPref("location").toUpperCase();
+    
+    if (location !== ""){
+    	var locItems = location.split("|");
+    	if (locItems.length >= 3) {
+    		var salatLabel = document.getElementById('opt-txt-location');
+    		salatLabel.value = locItems[0] + "," + locItems[1] + "," + locItems[2];
+    	}
+    }
   },
   shutdown: function()
   {
+    this.prefs.removeObserver("", this);
   },
   setLocation: function()
   {
@@ -26,13 +37,13 @@ SalatOptions.prototype = {
 	  
       var fullUrl = "http://ws.geonames.org/timezone?lat=" + latlng[1] + "&lng=" + latlng[0];
       
-      
       function infoReceived()
       {
     	  var output = httpRequest.responseText;
     	  var xml = gOptions.parseXml(output);
     	  var status = xml.getElementsByTagName("gmtOffset")[0];
     	  status = listLocation.selectedItem.label + "|" + listLocation.selectedItem.value + "|" + status.textContent;
+    	  
     	  gOptions.prefs.setCharPref("location",  status);
       }
     
@@ -72,7 +83,7 @@ SalatOptions.prototype = {
 
       var label = encodeURI(salatLabel.value);
       var fullUrl = "http://maps.google.com/maps/geo?q=" + label + "&output=xml&oe=utf8&sensor=false&key=ABQIAAAAeEu53kLZK03TzLpprIb0mBSm-FJPGg2xMRY09KX-giEGc053UBS1lTKGFzOsdSWxaJBO59Ae6sqGUg"; //"http://salattimes.keensocial.com/index.php?action=geocode&address=" + label;
-      
+      alert(fullUrl);
       function infoReceived()
       {
     	  var locations = new Array();
@@ -82,6 +93,7 @@ SalatOptions.prototype = {
     	  status = status.firstElementChild.textContent; 
     	  if (status == 200) {
     		  var placemarks = xml.getElementsByTagName("Placemark");
+    		  
     		  for(var i = 0; i < placemarks.length; ++i)
     		  {
     			  var country = placemarks[i].children[1].children[0];
@@ -119,20 +131,6 @@ SalatOptions.prototype = {
   }
 }
 
-function stLoad()
-{
-  gOptions = new SalatOptions();
-  gOptions.startup();
-};
-
-function stUnload()
-{
-  if (gOptions)
-  {
-	  gOptions.shutdown();
-	  gOptions = null;
-  }
-};
-
-window.addEventListener("load", stLoad, false);
-window.addEventListener("unload", stUnload, false);
+var gOptions = new SalatOptions();
+window.addEventListener("load", gOptions.startup, false);
+window.addEventListener("unload", gOptions.shutdown, false);
