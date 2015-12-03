@@ -1,0 +1,1 @@
+This project will develop a firefox extension to present the salat/namaz/prayer times of the Muslim/Islamic communities around the globe.
